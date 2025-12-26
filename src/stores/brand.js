@@ -354,7 +354,7 @@ export const useBrandStore = defineStore('brand', () => {
     dq: {
       id: 'dq',
       name: 'DQ',
-      image: 'https://images.unsplash.com/photo-1563805042-7684c019e1b5?w=200&h=200&fit=crop',
+      image: 'https://i.pinimg.com/1200x/0e/86/86/0e8686ab820369e1d507117560e745e3.jpg',
       stores: [
         {
           id: 1,
