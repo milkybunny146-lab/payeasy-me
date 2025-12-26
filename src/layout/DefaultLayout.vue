@@ -6,12 +6,14 @@
     <SearchInput />
     <router-view />
     <AppFooter />
+    <ScrollToTop />
   </div>
 </template>
 
 <script setup>
 import AppHeader from './AppHeader.vue'
 import SearchInput from './SearchInput.vue'
+import ScrollToTop from '../components/common/ScrollToTop.vue'
 </script>
 
 <style scoped>
