@@ -1,4 +1,7 @@
 <template>
+  <div class="promotion-detail-view">
+    <!-- 桌面版：大卡片設計 -->
+    <div class="hidden md:block">
   <div class="w-full flex justify-center px-10 py-8">
     <div class="max-w-4xl w-full">
       <!-- 整張大卡片 -->
@@ -58,6 +61,68 @@
               使用
             </button>
           </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 手機版：整頁式設計 -->
+    <div class="md:hidden promotion-detail-mobile">
+      <!-- 圖片區域（全寬） -->
+      <div class="mobile-image-section">
+        <img
+          :src="promotionDetail?.image || ''"
+          :alt="promotionDetail?.title || '優惠券圖片'"
+          class="mobile-promotion-image"
+        />
+      </div>
+
+      <!-- 內容區域 -->
+      <div class="mobile-content-section">
+        <!-- 標題 -->
+        <h1 class="mobile-promotion-title">
+          {{ promotionDetail?.title || '優惠券詳情' }}
+        </h1>
+
+        <!-- 使用說明 -->
+        <div class="mobile-promotion-section">
+          <h2 class="mobile-section-title">使用說明</h2>
+          <h3 class="mobile-section-subtitle">使用方式：</h3>
+          <p class="mobile-usage-description">出示此優惠券於結帳時，可享消費滿${{ promotionDetail?.originalPrice || 0 }}元。</p>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="mobile-promotion-section">
+          <h2 class="mobile-section-title">注意事項：</h2>
+          <ul class="mobile-notes-list">
+            <li
+              v-for="(note, index) in promotionDetail?.notes || []"
+              :key="index"
+              class="mobile-note-item"
+            >
+              {{ note }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- 核銷碼 -->
+        <div class="mobile-promotion-section">
+          <h2 class="mobile-section-title">核銷碼</h2>
+          <input
+            v-model="verificationCode"
+            type="text"
+            placeholder="請輸入核銷碼"
+            class="mobile-verification-input"
+          />
+          <p class="mobile-verification-hint">請向店家服務人員索取核銷碼</p>
+        </div>
+
+        <!-- 使用按鈕 -->
+        <div class="mobile-promotion-actions">
+          <button class="mobile-use-button" @click="handleUse">
+            使用
+          </button>
         </div>
       </div>
     </div>
@@ -124,6 +189,8 @@ onMounted(() => {
   console.log('Computed promotionId:', promotionId.value)
   console.log('Store from storeStore:', storeStore.getStoreById(storeId.value))
   console.log('PromotionDetail:', promotionDetail.value)
+  // 頁面載入時滾動到頂部
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 })
 
 // 從 Pinia store 獲取優惠券詳情
@@ -301,23 +368,149 @@ const handleUse = () => {
   color: white;
 }
 
-/* 響應式設計 */
-@media (max-width: 768px) {
-  .promotion-detail-title {
+/* ========== 手機版樣式 ========== */
+.promotion-detail-view {
+  min-height: 100vh;
+  background: white;
+}
+
+.promotion-detail-mobile {
+  width: 100%;
+  background: white;
+}
+
+/* 手機版圖片區域（全寬） */
+.mobile-image-section {
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%; /* 調整圖片比例 */
+  overflow: hidden;
+  position: relative;
+}
+
+.mobile-promotion-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 手機版內容區域 */
+.mobile-content-section {
+  padding: 20px 16px 100px 16px; /* 底部 padding 為按鈕留空間 */
+}
+
+.mobile-promotion-title {
     font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.4;
   }
 
-  .section-title {
-    font-size: 20px;
+.mobile-promotion-section {
+  margin-bottom: 24px;
+}
+
+.mobile-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
   }
 
-  .promotion-image-section {
-    height: 300px;
+.mobile-section-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.mobile-usage-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+.mobile-notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-note-item {
+  padding: 12px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  position: relative;
+  padding-left: 20px;
+}
+
+.mobile-note-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #000;
+  font-weight: bold;
+}
+
+.mobile-verification-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
   }
 
-  .promotion-content-section {
-    padding: 24px;
+.mobile-verification-input:focus {
+  outline: none;
+  border-color: #f78a01;
+}
+
+.mobile-verification-hint {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}
+
+.mobile-promotion-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.mobile-use-button {
+  width: 100%;
+  padding: 16px;
+  background: #f68a01;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(246, 138, 1, 0.3);
   }
+
+.mobile-use-button:hover {
+  background: #e66a00;
+  box-shadow: 0 6px 16px rgba(246, 138, 1, 0.4);
+}
+
+.mobile-use-button:active {
+  transform: scale(0.98);
 }
 </style>
 

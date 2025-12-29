@@ -1,9 +1,9 @@
 <template>
   <!-- 分類內容區域 -->
-  <div class="w-full flex justify-center px-10 py-8">
+  <div class="w-full flex justify-center px-4 py-6 md:px-10 md:py-8">
     <div class="max-w-7xl w-full">
-      <h2 class="text-4xl font-[300] text-black mb-2">{{ categoryName }}</h2>
-      <h3 class="text-base text-gray-500 mb-6">共 {{ totalStores }} 家特約店家</h3>
+      <h2 class="text-4xl font-light text-black mb-2 md:text-2xl">{{ categoryName }}</h2>
+      <h3 class="text-base text-gray-500 mb-6 md:text-sm md:mb-4">共 {{ totalStores }} 家特約店家</h3>
 
       <!-- 使用 v-for 循環渲染卡片 -->
       <div class="stores-grid">
@@ -99,11 +99,11 @@ watch(categoryId, () => {
   gap: 24px;
 }
 
-/* 響應式設計 */
+/* 手機版：兩兩並排 */
 @media (max-width: 768px) {
   .stores-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
 </style>

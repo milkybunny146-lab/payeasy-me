@@ -14,9 +14,9 @@
     </div>
 
     <!-- 下方內容區域 -->
-    <div class="w-full flex justify-center px-10 py-8">
+    <div class="w-full flex justify-center px-4 py-6 md:px-10 md:py-8">
       <div class="max-w-7xl w-full">
-        <h2 class="text-2xl font-bold text-black mb-6">精選店家</h2>
+        <h2 class="text-2xl font-bold text-black mb-6 md:text-xl md:mb-4">精選店家</h2>
 
         <!-- 使用 v-for 循環渲染卡片 -->
         <div class="stores-grid">
@@ -166,10 +166,11 @@ onMounted(() => {
   gap: 24px;
 }
 
+/* 手機版：兩兩並排 */
 @media (max-width: 768px) {
   .stores-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
 </style>

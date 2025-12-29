@@ -6,7 +6,8 @@ export const useBrandStore = defineStore('brand', () => {
     starbucks: {
       id: 'starbucks',
       name: '星巴克',
-      image: 'https://images.unsplash.com/photo-1657979964801-3e3bb6c03a7e?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1657979964801-3e3bb6c03a7e?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -73,7 +74,8 @@ export const useBrandStore = defineStore('brand', () => {
     ikea: {
       id: 'ikea',
       name: 'IKEA',
-      image: 'https://images.unsplash.com/photo-1679050367261-d7a4a7747ef4?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1679050367261-d7a4a7747ef4?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -90,7 +92,8 @@ export const useBrandStore = defineStore('brand', () => {
     pxmart: {
       id: 'pxmart',
       name: '全聯',
-      image: 'https://images.unsplash.com/photo-1671427478482-2968e71a6311?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1671427478482-2968e71a6311?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -107,7 +110,8 @@ export const useBrandStore = defineStore('brand', () => {
     carrefour: {
       id: 'carrefour',
       name: '家樂福',
-      image: 'https://images.unsplash.com/photo-1757940059931-6e3c6572d989?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1757940059931-6e3c6572d989?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -124,7 +128,8 @@ export const useBrandStore = defineStore('brand', () => {
     eslite: {
       id: 'eslite',
       name: '誠品書店',
-      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -132,7 +137,7 @@ export const useBrandStore = defineStore('brand', () => {
           category: '書籍文具 > 連鎖書店',
           rating: 4.7,
           distance: '1.5km',
-          image: '/selected/books.jpeg',
+          image: 'https://picsum.photos/seed/brand-books/800/600',
           coupon: '會員專屬折價券',
         },
       ],
@@ -140,7 +145,8 @@ export const useBrandStore = defineStore('brand', () => {
     cosmed: {
       id: 'cosmed',
       name: '康是美',
-      image: 'https://images.unsplash.com/photo-1761036602705-48c4b69232c8?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1761036602705-48c4b69232c8?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -156,7 +162,8 @@ export const useBrandStore = defineStore('brand', () => {
     seveneleven: {
       id: 'seveneleven',
       name: '7-11',
-      image: 'https://images.unsplash.com/photo-1613535738534-5e4d22597ab5?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1613535738534-5e4d22597ab5?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -173,7 +180,8 @@ export const useBrandStore = defineStore('brand', () => {
     watson: {
       id: 'watson',
       name: '屈臣氏',
-      image: 'https://images.unsplash.com/photo-1713937187927-4e80f5a54efa?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1713937187927-4e80f5a54efa?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -181,7 +189,7 @@ export const useBrandStore = defineStore('brand', () => {
           category: '美妝保養 > 連鎖藥妝',
           rating: 4.3,
           distance: '0.8km',
-          image: '/selected/cosmetics.jpeg',
+          image: 'https://picsum.photos/seed/brand-cosmetics/800/600',
           coupon: '滿千送百購物金',
         },
       ],
@@ -189,7 +197,8 @@ export const useBrandStore = defineStore('brand', () => {
     poya: {
       id: 'poya',
       name: '寶雅',
-      image: 'https://images.unsplash.com/photo-1601599561213-832382fd07ba?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1601599561213-832382fd07ba?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -206,7 +215,8 @@ export const useBrandStore = defineStore('brand', () => {
     net: {
       id: 'net',
       name: 'NET',
-      image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&h=800&fit=crop&q=90',
+      image:
+        'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&h=800&fit=crop&q=90',
       stores: [
         {
           id: 1,
@@ -214,7 +224,7 @@ export const useBrandStore = defineStore('brand', () => {
           category: '服飾配件 > 服飾店',
           rating: 4.2,
           distance: '2.3km',
-          image: '/selected/cloths.jpeg',
+          image: 'https://picsum.photos/seed/brand-cloths/800/600',
           coupon: '新品上市優惠券',
         },
       ],
@@ -230,7 +240,7 @@ export const useBrandStore = defineStore('brand', () => {
           category: '服飾配件 > 服飾店',
           rating: 4.4,
           distance: '1.5km',
-          image: '/selected/cloths.jpeg',
+          image: 'https://picsum.photos/seed/brand-cloths/800/600',
           coupon: '新品上市優惠券',
         },
       ],
@@ -322,7 +332,7 @@ export const useBrandStore = defineStore('brand', () => {
     paradise: {
       id: 'paradise',
       name: '饗食天堂',
-      image: '/theme/paradise.jpeg',
+      image: 'https://picsum.photos/seed/brand-paradise/800/600',
       stores: [
         {
           id: 1,
@@ -330,7 +340,7 @@ export const useBrandStore = defineStore('brand', () => {
           category: '美食 > 吃到飽',
           rating: 4.3,
           distance: '2.5km',
-          image: '/theme/paradise.jpeg',
+          image: 'https://picsum.photos/seed/brand-paradise-store/800/600',
           coupon: '會員專屬折扣券',
         },
       ],

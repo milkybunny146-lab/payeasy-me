@@ -1,7 +1,8 @@
 <template>
   <Teleport to="body">
+    <!-- ========== 桌面版篩選面板 ========== -->
     <Transition name="filter-panel">
-      <div v-if="visible" class="filter-overlay" @click.self="handleClose">
+      <div v-if="visible" class="filter-overlay hidden md:block" @click.self="handleClose">
         <div class="filter-panel" @click.stop>
           <!-- 特店分類 -->
           <div class="filter-section">
@@ -91,6 +92,158 @@
               確定
             </button>
           </div>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- ========== 手機版篩選面板 ========== -->
+    <!-- 遮罩 -->
+    <Transition name="fade">
+      <div
+        v-if="visible"
+        class="fixed inset-0 bg-black/50 z-50 md:hidden"
+        @click="handleClose"
+      />
+    </Transition>
+
+    <!-- 篩選面板 -->
+    <Transition name="slide-up">
+      <div
+        v-if="visible"
+        class="fixed inset-x-0 bottom-0 top-[10%] bg-white rounded-t-2xl z-50 md:hidden flex flex-col"
+        @click.stop
+      >
+        <!-- 標題列 -->
+        <div class="flex justify-between items-center px-4 py-4 border-b border-gray-100 shrink-0">
+          <h3 class="text-lg font-bold text-gray-900">分類篩選</h3>
+          <button
+            @click="handleClose"
+            class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- 篩選內容（可滾動區域） -->
+        <div class="flex-1 overflow-y-auto px-4 py-4">
+          <!-- 特店分類 -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-orange-500 mb-3">特店分類</h4>
+            <div class="grid grid-cols-3 gap-2">
+              <button
+                v-for="category in categories"
+                :key="category.id"
+                @click="selectedCategory = category.id"
+                :class="[
+                  'py-2.5 px-3 rounded-lg text-sm transition-colors text-center',
+                  selectedCategory === category.id
+                    ? 'bg-[#fff5eb] text-orange-500 border border-orange-300'
+                    : 'text-gray-600 hover:bg-gray-50'
+                ]"
+              >
+                {{ category.label }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 細部分類 -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-orange-500 mb-3">細部分類</h4>
+            <div class="grid grid-cols-3 gap-2">
+              <button
+                v-for="subCat in subCategories"
+                :key="subCat.value"
+                @click="selectedSubCategory = selectedSubCategory === subCat.value ? '' : subCat.value"
+                :class="[
+                  'py-2.5 px-3 rounded-lg text-sm transition-colors text-center',
+                  selectedSubCategory === subCat.value
+                    ? 'bg-[#fff5eb] text-orange-500 border border-orange-300'
+                    : 'text-gray-600 hover:bg-gray-50'
+                ]"
+              >
+                {{ subCat.label }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 縣市區域 -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-orange-500 mb-3">縣市區域</h4>
+            <div class="grid grid-cols-2 gap-3">
+              <select
+                v-model="selectedCity"
+                class="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-600 outline-none focus:border-orange-300"
+              >
+                <option value="all">所有縣市</option>
+                <option v-for="city in cities" :key="city" :value="city">{{ city }}</option>
+              </select>
+              <select
+                v-model="selectedArea"
+                class="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-600 outline-none focus:border-orange-300"
+              >
+                <option value="all">所有區域</option>
+                <option v-for="area in areas" :key="area" :value="area">{{ area }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 服務 -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-orange-500 mb-3">服務</h4>
+            <div class="grid grid-cols-3 gap-2">
+              <button
+                v-for="service in services"
+                :key="service.id"
+                @click="toggleService(service.id)"
+                :class="[
+                  'py-2.5 px-3 rounded-lg text-sm transition-colors text-center',
+                  selectedServices.includes(service.id)
+                    ? 'bg-[#fff5eb] text-orange-500 border border-orange-300'
+                    : 'text-gray-600 hover:bg-gray-50'
+                ]"
+              >
+                {{ service.label }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 評分 -->
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-orange-500 mb-3">評分</h4>
+            <div class="grid grid-cols-4 gap-2">
+              <button
+                v-for="rating in ratings"
+                :key="rating.value"
+                @click="selectedRating = selectedRating === rating.value ? '' : rating.value"
+                :class="[
+                  'py-2.5 px-3 rounded-lg text-sm transition-colors text-center',
+                  selectedRating === rating.value
+                    ? 'bg-[#fff5eb] text-orange-500 border border-orange-300'
+                    : 'text-gray-600 hover:bg-gray-50'
+                ]"
+              >
+                {{ rating.label }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部按鈕 -->
+        <div class="flex gap-3 px-4 py-4 border-t border-gray-100 shrink-0">
+          <button
+            @click="handleClear"
+            class="flex-1 py-3 border border-gray-300 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+          >
+            清除篩選
+          </button>
+          <button
+            @click="handleConfirm"
+            class="flex-1 py-3 bg-orange-500 rounded-lg text-sm text-white hover:bg-orange-600 transition-colors"
+          >
+            確定
+          </button>
         </div>
       </div>
     </Transition>
@@ -198,7 +351,6 @@ const cities = ['台北市', '新北市', '桃園市', '台中市', '台南市',
 
 // 區域選項（根據選中的縣市動態顯示）
 const areas = computed(() => {
-  // 這裡可以根據選中的縣市返回對應的區域
   return ['全部區域', '信義區', '大安區', '中正區', '中山區']
 })
 
@@ -276,9 +428,7 @@ const handleConfirm = () => {
     rating: selectedRating.value
   }
 
-  // 根據分類導向對應頁面
   if (selectedCategory.value !== 'all') {
-    // 映射分類 ID 到路由路徑
     const categoryMap = {
       restaurant: 'restaurant',
       shopping: 'groceries',
@@ -294,7 +444,6 @@ const handleConfirm = () => {
       router.push(`/cate/${routePath}`)
     }
   } else {
-    // 如果選擇全部分類，可以導向首頁或保持當前頁面
     router.push('/')
   }
 
@@ -311,17 +460,18 @@ const handleClose = () => {
 // 當面板關閉時重置篩選條件（可選）
 watch(() => props.visible, (newVal) => {
   if (!newVal) {
-    // 可以選擇是否在關閉時重置
     // handleClear()
   }
 })
 </script>
 
 <style scoped>
+/* ========== 桌面版樣式 ========== */
+
 /* 背景遮罩 */
 .filter-overlay {
   position: fixed;
-  top: 160px; /* 從導航列下方開始 */
+  top: 160px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -339,9 +489,9 @@ watch(() => props.visible, (newVal) => {
   padding: 32px 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   position: relative;
-  max-height: 70vh; /* 限制最大高度，不遮擋全部畫面 */
-  overflow-y: auto; /* 內容可滾動 */
-  border-top: 2px solid #e0e0e0; /* 導航列與面板間的隔線 */
+  max-height: 70vh;
+  overflow-y: auto;
+  border-top: 2px solid #e0e0e0;
 }
 
 /* 自訂滾動條樣式 */
@@ -365,10 +515,10 @@ watch(() => props.visible, (newVal) => {
 /* 篩選區塊 */
 .filter-section {
   margin-bottom: 32px;
-  max-width: 1280px; /* 與導航列 max-w-7xl 一致 */
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 40px; /* 與導航列 px-10 一致 */
+  padding: 0 40px;
 }
 
 .section-title {
@@ -382,17 +532,17 @@ watch(() => props.visible, (newVal) => {
 .filter-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px; /* 增加選項間距 */
-  padding-right: 8px; /* 為滾動條留出空間 */
-  justify-content: flex-start; /* 靠左對齊 */
+  gap: 16px;
+  padding-right: 8px;
+  justify-content: flex-start;
 }
 
 /* 特店分類和服務使用 grid 佈局，每列5個 */
 .filter-options-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px; /* 增加選項間距 */
-  padding-right: 8px; /* 為滾動條留出空間 */
+  gap: 20px;
+  padding-right: 8px;
 }
 
 /* 篩選按鈕 */
@@ -406,25 +556,25 @@ watch(() => props.visible, (newVal) => {
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  text-align: left; /* 文字靠左對齊 */
+  text-align: left;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
 .filter-button:hover:not(.filter-button-active) {
-  background: #f5f5f5; /* hover 時灰色背景 */
+  background: #f5f5f5;
   color: #f78a01
 }
 
 .filter-button-active {
-  background: #fef3e6; /* 點擊後淺橙色背景 */
-  color: #f78a01; /* 文字顏色為橙色 */
+  background: #fef3e6;
+  color: #f78a01;
 }
 
 .filter-button-active:hover {
-  background: #fef3e6; /* 選中狀態 hover 時保持淺橙色 */
-  color: #f78a01; /* 文字顏色保持橙色 */
+  background: #fef3e6;
+  color: #f78a01;
 }
 
 /* 下拉選單行 */
@@ -478,6 +628,11 @@ watch(() => props.visible, (newVal) => {
   padding-top: 24px;
   border-top: 1px solid #e0e0e0;
   margin-top: 32px;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .action-button {
@@ -510,7 +665,7 @@ watch(() => props.visible, (newVal) => {
   background: #e66a00;
 }
 
-/* 過渡動畫 */
+/* 桌面版過渡動畫 */
 .filter-panel-enter-active,
 .filter-panel-leave-active {
   transition: opacity 0.3s ease;
@@ -531,5 +686,28 @@ watch(() => props.visible, (newVal) => {
   transform: translateY(-20px);
   opacity: 0;
 }
-</style>
 
+/* ========== 手機版動畫 ========== */
+
+/* 淡入淡出動畫（遮罩） */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 從下方滑入動畫（篩選面板） */
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(100%);
+}
+</style>

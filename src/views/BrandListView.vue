@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full flex justify-center px-10 py-8">
+  <div class="w-full flex justify-center px-4 py-6 md:px-10 md:py-8">
     <div class="max-w-7xl w-full">
       <!-- 標題區域 -->
-      <h2 class="text-4xl font-[300] text-black mb-8">全部品牌</h2>
+      <h2 class="text-xl md:text-4xl font-[300] text-black mb-6 md:mb-8">全部品牌</h2>
 
-      <!-- 品牌網格（6列4行） -->
+      <!-- 品牌網格 -->
       <div class="brands-grid">
         <router-link
           v-for="brand in paginatedBrands"
@@ -13,7 +13,7 @@
           class="brand-item"
         >
           <div class="brand-avatar-wrapper">
-            <el-avatar :size="200" :src="brand.image" @error="errorHandler">
+            <el-avatar :size="200" :src="brand.image" @error="errorHandler" class="brand-avatar">
               <img :src="brand.image" :alt="brand.name" />
             </el-avatar>
           </div>
@@ -21,13 +21,25 @@
         </router-link>
       </div>
 
-      <!-- 分頁組件 -->
-      <PaginationBar
-        v-if="totalPages > 0"
-        :current-page="currentPage"
-        :total-pages="totalPages"
-        @page-change="handlePageChange"
-      />
+      <!-- 分頁組件 - 桌面版 -->
+      <div class="hidden md:block">
+        <PaginationBar
+          v-if="totalPages > 0"
+          :current-page="currentPage"
+          :total-pages="totalPages"
+          @page-change="handlePageChange"
+        />
+      </div>
+
+      <!-- 分頁組件 - 手機版（無跳轉） -->
+      <div class="block md:hidden">
+        <SimplePaginationBar
+          v-if="totalPages > 0"
+          :current-page="currentPage"
+          :total-pages="totalPages"
+          @page-change="handlePageChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +48,7 @@
 import { ref, computed } from 'vue'
 import { useBrandStore } from '@/stores/brand'
 import PaginationBar from '@/components/common/Pagination.vue'
+import SimplePaginationBar from '@/components/common/SimplePagination.vue'
 
 const brandStore = useBrandStore()
 
@@ -107,6 +120,14 @@ const handlePageChange = (page) => {
   border-color: #f78a01;
 }
 
+/* 手機版頭像大小 */
+@media (max-width: 768px) {
+  .brand-avatar-wrapper :deep(.el-avatar) {
+    width: 110px !important;
+    height: 110px !important;
+  }
+}
+
 .brand-name {
   font-size: 14px;
   color: #333;
@@ -131,16 +152,15 @@ const handlePageChange = (page) => {
   }
 }
 
+/* 手機版：三個並排 */
 @media (max-width: 768px) {
   .brands-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px 16px;
+    gap: 20px 12px;
   }
-}
 
-@media (max-width: 480px) {
-  .brands-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .brand-name {
+    font-size: 12px;
   }
 }
 </style>

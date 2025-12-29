@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full flex justify-center px-10 py-8">
+  <div class="w-full flex justify-center px-4 py-8 md:px-4 md:py-6">
     <div class="max-w-7xl w-full">
-      <h2 class="text-2xl font-bold text-black mb-6">特約店家</h2>
+      <h2 class="text-xl md:text-2xl font-[350] text-black mb-4 md:mb-6">特約店家</h2>
 
       <!-- 使用 v-for 循環渲染卡片 -->
       <div class="stores-grid">
@@ -13,12 +13,25 @@
         />
       </div>
 
-      <!-- 分頁組件 -->
-      <PaginationBar
-        :current-page="currentPage"
-        :total-pages="totalPages"
-        @page-change="handlePageChange"
-      />
+      <!-- 桌面版分頁組件 -->
+      <div class="hidden md:block">
+        <PaginationBar
+          :current-page="currentPage"
+          :total-pages="totalPages"
+          :show-jump="true"
+          @page-change="handlePageChange"
+        />
+      </div>
+
+      <!-- 手機版分頁組件（僅顯示數字按鈕） -->
+      <div class="block md:hidden">
+        <PaginationBar
+          :current-page="currentPage"
+          :total-pages="totalPages"
+          :show-jump="false"
+          @page-change="handlePageChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +53,7 @@ const stores = ref([
     category: '美食 > 連鎖餐廳',
     rating: 4.5,
     distance: '1.2km',
-    image: '/selected/steak.jpeg',
+    image: 'https://picsum.photos/seed/homeauth-steak/800/600',
     coupon: '平日午餐9折優惠券'
   },
   {
@@ -49,7 +62,7 @@ const stores = ref([
     category: '美妝保養 > 連鎖藥妝',
     rating: 4.3,
     distance: '0.8km',
-    image: '/selected/cosmetics.jpeg',
+    image: 'https://picsum.photos/seed/homeauth-cosmetics/800/600',
     coupon: '滿千送百購物金'
   },
   {
@@ -58,7 +71,7 @@ const stores = ref([
     category: '書籍文具 > 連鎖書店',
     rating: 4.7,
     distance: '1.5km',
-    image: '/selected/books.jpeg',
+    image: 'https://picsum.photos/seed/homeauth-books/800/600',
     coupon: '會員專屬折價券'
   },
   {
@@ -67,7 +80,7 @@ const stores = ref([
     category: '服飾配件 > 服飾店',
     rating: 4.2,
     distance: '2.3km',
-    image: '/selected/cloths.jpeg',
+    image: 'https://picsum.photos/seed/homeauth-cloths/800/600',
     coupon: '新品上市優惠券'
   },
   {
@@ -610,11 +623,12 @@ const handleCouponClick = (store) => {
   gap: 24px;
 }
 
-/* 響應式設計 */
+/* 手機版：兩兩並排 */
 @media (max-width: 768px) {
   .stores-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
+
 </style>

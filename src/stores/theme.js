@@ -16,7 +16,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '美食 > 火鍋',
           rating: 4.5,
           distance: '1.2km',
-          image: '/theme/hotpot.jpeg',
+          image: 'https://picsum.photos/seed/theme-hotpot/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -25,7 +25,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '美食 > 台菜',
           rating: 4.8,
           distance: '2.5km',
-          image: '/theme/food.jpeg',
+          image: 'https://picsum.photos/seed/theme-food/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -34,7 +34,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '美食 > 吃到飽',
           rating: 4.3,
           distance: '3.1km',
-          image: '/theme/paradise.jpeg',
+          image: 'https://picsum.photos/seed/theme-paradise/800/600',
           coupon: '會員專屬折扣券',
         },
         {
@@ -91,7 +91,7 @@ export const useThemeStore = defineStore('theme', () => {
     dessert: {
       id: 'dessert',
       name: '美味甜點',
-      image: '/theme/dessert.jpeg',
+      image: 'https://picsum.photos/seed/theme-dessert/800/600',
       categoryId: 'coffee', // 對應到咖啡飲品分類
       stores: [
         {
@@ -100,7 +100,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '甜點 > 蛋糕',
           rating: 4.6,
           distance: '0.8km',
-          image: '/theme/ladym.jpeg',
+          image: 'https://picsum.photos/seed/theme-ladym/800/600',
           coupon: '第二件半價券',
         },
         {
@@ -109,7 +109,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '甜點 > 冰淇淋',
           rating: 4.5,
           distance: '1.5km',
-          image: '/theme/haagen.jpeg',
+          image: 'https://picsum.photos/seed/theme-haagen/800/600',
           coupon: '滿額現金回饋券',
         },
         {
@@ -118,7 +118,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '甜點 > 珍珠奶茶',
           rating: 4.4,
           distance: '1.1km',
-          image: '/theme/bubble.jpeg',
+          image: 'https://picsum.photos/seed/theme-bubble/800/600',
           coupon: '會員專屬折扣券',
         },
         {
@@ -174,7 +174,7 @@ export const useThemeStore = defineStore('theme', () => {
     coffee: {
       id: 'coffee',
       name: '咖啡飲品',
-      image: '/theme/coffee.jpg',
+      image: 'https://picsum.photos/seed/theme-coffee/800/600',
       categoryId: 'coffee',
       stores: [
         {
@@ -183,7 +183,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '飲品 > 咖啡',
           rating: 4.2,
           distance: '0.5km',
-          image: '/theme/starbucks.jpeg',
+          image: 'https://picsum.photos/seed/theme-starbucks/800/600',
           coupon: '第二杯半價券',
         },
         {
@@ -192,7 +192,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '飲品 > 咖啡',
           rating: 4.4,
           distance: '0.8km',
-          image: '/theme/louisa.jpeg',
+          image: 'https://picsum.photos/seed/theme-louisa/800/600',
           coupon: '會員專屬折扣券',
         },
         {
@@ -201,7 +201,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '飲品 > 咖啡',
           rating: 4.3,
           distance: '1.0km',
-          image: '/theme/cama.jpeg',
+          image: 'https://picsum.photos/seed/theme-cama/800/600',
           coupon: '第二杯半價券',
         },
         {
@@ -259,7 +259,7 @@ export const useThemeStore = defineStore('theme', () => {
     japanese: {
       id: 'japanese',
       name: '日式料理',
-      image: '/theme/japanese.jpg',
+      image: 'https://picsum.photos/seed/theme-japanese/800/600',
       categoryId: 'restaurant',
       stores: [
         {
@@ -268,7 +268,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '日式 > 壽司',
           rating: 4.5,
           distance: '1.8km',
-          image: '/theme/kura.jpeg',
+          image: 'https://picsum.photos/seed/theme-kura/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -277,7 +277,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '日式 > 拉麵',
           rating: 4.7,
           distance: '2.0km',
-          image: '/theme/ichiran.jpeg',
+          image: 'https://picsum.photos/seed/theme-ichiran/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -286,7 +286,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '日式 > 燒肉',
           rating: 4.6,
           distance: '1.5km',
-          image: '/theme/kanpai.jpeg',
+          image: 'https://picsum.photos/seed/theme-kanpai/800/600',
           coupon: '會員專屬折扣券',
         },
         {
@@ -344,7 +344,7 @@ export const useThemeStore = defineStore('theme', () => {
     healthy: {
       id: 'healthy',
       name: '健康輕食',
-      image: '/theme/healthy.jpg',
+      image: 'https://picsum.photos/seed/theme-healthy/800/600',
       categoryId: 'restaurant',
       stores: [
         {
@@ -353,7 +353,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '輕食 > 三明治',
           rating: 4.1,
           distance: '0.6km',
-          image: '/theme/subway.jpeg',
+          image: 'https://picsum.photos/seed/theme-subway/800/600',
           coupon: '第二件半價券',
         },
         {
@@ -362,7 +362,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '輕食 > 沙拉',
           rating: 4.3,
           distance: '1.2km',
-          image: '/theme/salad.jpeg',
+          image: 'https://picsum.photos/seed/theme-salad/800/600',
           coupon: '會員專屬折扣券',
         },
         {
@@ -371,7 +371,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '輕食 > 早午餐',
           rating: 4.4,
           distance: '1.8km',
-          image: '/theme/secondfloor.jpeg',
+          image: 'https://picsum.photos/seed/theme-secondfloor/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -429,7 +429,7 @@ export const useThemeStore = defineStore('theme', () => {
     world: {
       id: 'world',
       name: '異國風味',
-      image: '/theme/world.jpg',
+      image: 'https://picsum.photos/seed/theme-world/800/600',
       categoryId: 'restaurant',
       stores: [
         {
@@ -438,7 +438,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '泰式 > 泰菜',
           rating: 4.5,
           distance: '2.2km',
-          image: '/theme/wacity.jpeg',
+          image: 'https://picsum.photos/seed/theme-wacity/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -447,7 +447,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '義式 > 披薩',
           rating: 4.2,
           distance: '1.6km',
-          image: '/theme/pizza.jpeg',
+          image: 'https://picsum.photos/seed/theme-pizza/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -456,7 +456,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '韓式 > 豆腐鍋',
           rating: 4.4,
           distance: '1.9km',
-          image: '/theme/korean.jpeg',
+          image: 'https://picsum.photos/seed/theme-korean/800/600',
           coupon: '會員專屬折扣券',
         },
         {
@@ -519,7 +519,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '家居 > 生活百貨',
           rating: 4.4,
           distance: '2.58m',
-          image: '/theme/hotpot.jpeg',
+          image: 'https://picsum.photos/seed/theme-hotpot/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -528,7 +528,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '家居 > 五金工具',
           rating: 4.1,
           distance: '3.5km',
-          image: '/theme/food.jpeg',
+          image: 'https://picsum.photos/seed/theme-food/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -537,7 +537,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '家居 > 生活雜貨',
           rating: 4.5,
           distance: '1.9km',
-          image: '/theme/paradise.jpeg',
+          image: 'https://picsum.photos/seed/theme-paradise/800/600',
           coupon: '會員專屬折扣券',
         },
       ],
@@ -555,7 +555,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '娛樂 > 電影院',
           rating: 4.7,
           distance: '1.6km',
-          image: '/theme/hotpot.jpeg',
+          image: 'https://picsum.photos/seed/theme-hotpot/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -564,7 +564,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '娛樂 > KTV',
           rating: 4.3,
           distance: '2.8km',
-          image: '/theme/food.jpeg',
+          image: 'https://picsum.photos/seed/theme-food/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -573,7 +573,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '娛樂 > 遊樂場',
           rating: 4.2,
           distance: '3.2km',
-          image: '/theme/paradise.jpeg',
+          image: 'https://picsum.photos/seed/theme-paradise/800/600',
           coupon: '會員專屬折扣券',
         },
       ],
@@ -590,7 +590,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '服飾 > 休閒服飾',
           rating: 4.6,
           distance: '1.8km',
-          image: '/theme/hotpot.jpeg',
+          image: 'https://picsum.photos/seed/theme-hotpot/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -599,7 +599,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '服飾 > 時尚服飾',
           rating: 4.4,
           distance: '2.2km',
-          image: '/theme/food.jpeg',
+          image: 'https://picsum.photos/seed/theme-food/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -608,7 +608,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '服飾 > 平價服飾',
           rating: 4.2,
           distance: '1.5km',
-          image: '/theme/paradise.jpeg',
+          image: 'https://picsum.photos/seed/theme-paradise/800/600',
           coupon: '會員專屬折扣券',
         },
       ],
@@ -625,7 +625,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '運動 > 運動用品',
           rating: 4.6,
           distance: '2.1km',
-          image: '/theme/hotpot.jpeg',
+          image: 'https://picsum.photos/seed/theme-hotpot/800/600',
           coupon: '平日午餐9折優惠券',
         },
         {
@@ -634,7 +634,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '運動 > 運動用品',
           rating: 4.7,
           distance: '4.5km',
-          image: '/theme/food.jpeg',
+          image: 'https://picsum.photos/seed/theme-food/800/600',
           coupon: '滿千送百購物金',
         },
         {
@@ -643,7 +643,7 @@ export const useThemeStore = defineStore('theme', () => {
           category: '健身 > 健身房',
           rating: 4.5,
           distance: '1.2km',
-          image: '/theme/paradise.jpeg',
+          image: 'https://picsum.photos/seed/theme-paradise/800/600',
           coupon: '會員專屬折扣券',
         },
       ],

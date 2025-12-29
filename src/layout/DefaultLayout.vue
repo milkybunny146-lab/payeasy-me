@@ -13,7 +13,8 @@
 <script setup>
 import AppHeader from './AppHeader.vue'
 import SearchInput from './SearchInput.vue'
-import ScrollToTop from '../components/common/ScrollToTop.vue'
+import AppFooter from './AppFooter.vue'
+import ScrollToTop from '@/components/common/ScrollToTop.vue'
 </script>
 
 <style scoped>

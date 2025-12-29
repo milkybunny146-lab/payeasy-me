@@ -136,6 +136,8 @@ const handleImageLoad = () => {
   align-items: flex-start;
   font-size: 14px;
   margin: 4px 0;
+  gap: 8px;
+  min-width: 0; /* 允許 flex 項目收縮 */
 }
 
 .rating-wrapper {
@@ -143,6 +145,8 @@ const handleImageLoad = () => {
   flex-direction: column;
   gap: 8px;
   align-items: flex-start;
+  flex: 1;
+  min-width: 0; /* 允許 flex 項目收縮 */
 }
 
 .rating {
@@ -155,6 +159,9 @@ const handleImageLoad = () => {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0; /* 防止收縮 */
+  white-space: nowrap; /* 防止文字換行 */
+  font-size: 12px; /* 手機版使用較小字體 */
 }
 
 .location-icon {
@@ -174,6 +181,56 @@ const handleImageLoad = () => {
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+}
+
+/* 手機版響應式樣式 */
+@media (max-width: 768px) {
+  .store-image-wrapper {
+    height: 140px; /* 縮短圖片高度 */
+    margin-bottom: 8px; /* 減少底部間距 */
+  }
+
+  .store-info {
+    padding: 0 10px 10px 10px; /* 減少內邊距 */
+    gap: 6px; /* 減少間距 */
+  }
+
+  .store-name {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .store-category {
+    font-size: 11px;
+  }
+
+  .meta {
+    font-size: 11px;
+    gap: 4px;
+    margin: 2px 0;
+  }
+
+  .rating-wrapper {
+    gap: 4px;
+  }
+
+  .rating {
+    font-size: 11px;
+  }
+
+  .distance {
+    font-size: 10px;
+  }
+
+  .location-icon {
+    width: 11px;
+    height: 11px;
+  }
+
+  .coupon-button {
+    padding: 2px 8px;
+    font-size: 10px;
+  }
 }
 </style>
 

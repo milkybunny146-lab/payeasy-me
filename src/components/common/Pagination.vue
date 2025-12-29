@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination-container">
+  <div class="pagination-container" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
     <button
       class="pagination-arrow"
       :disabled="currentPage === 1"
@@ -30,7 +30,7 @@
       </svg>
     </button>
 
-    <div class="pagination-jump">
+    <div v-if="showJump" class="pagination-jump">
       <span>跳至</span>
       <input
         v-model.number="jumpPage"
@@ -65,6 +65,10 @@ const props = defineProps({
     type: Number,
     required: true,
     default: 1
+  },
+  showJump: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -99,12 +103,15 @@ const handleJump = () => {
 <style scoped>
 /* 分頁組件 */
 .pagination-container {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 8px;
   margin-top: 40px;
   padding: 20px 0;
+  width: 100%;
 }
 
 .pagination-arrow {
@@ -113,12 +120,13 @@ const handleJump = () => {
   border-radius: 50%;
   border: 1px solid #e5e7eb;
   background: white;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   color: #333;
+  flex-shrink: 0;
 }
 
 .pagination-arrow:hover:not(:disabled) {
@@ -142,9 +150,10 @@ const handleJump = () => {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .pagination-page:hover {
@@ -165,6 +174,17 @@ const handleJump = () => {
   margin-left: 16px;
   font-size: 14px;
   color: #666;
+  flex-shrink: 0;
+}
+
+/* 手機版：跳轉選擇器換行顯示 */
+@media (max-width: 768px) {
+  .pagination-jump {
+    margin-left: 0;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .jump-input {

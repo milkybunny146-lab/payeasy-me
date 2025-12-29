@@ -69,6 +69,12 @@ const router = createRouter({
       component: PromotionDetailView,
       props: true,
     },
+    {
+      path: '/store/:storeId/ticket/:ticketId',
+      name: 'store-ticket-detail',
+      component: () => import('@/views/StoreTicketDetailView.vue'),
+      props: true,
+    },
     // 保留舊路由作為重定向（向後兼容）
     {
       path: '/restaurant',

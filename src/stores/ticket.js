@@ -8,7 +8,7 @@ export const useTicketStore = defineStore('ticket', () => {
       title: 'Subway信義店',
       description: 'PayEasy大吉大利套餐',
       points: 350,
-      image: '/ticket/subway.jpg',
+      image: 'https://picsum.photos/seed/ticket1/800/600',
       // 詳情頁數據
       detail: {
         title: 'PayEasy大吉大利套餐',
@@ -36,7 +36,7 @@ export const useTicketStore = defineStore('ticket', () => {
       title: '星巴克南京店',
       description: '中杯咖啡兌換券',
       points: 280,
-      image: '/ticket/coffee.jpg',
+      image: 'https://picsum.photos/seed/ticket2/800/600',
       detail: {
         title: '中杯咖啡兌換券',
         pointsPerItem: 280,
@@ -63,7 +63,7 @@ export const useTicketStore = defineStore('ticket', () => {
       title: '威秀影城信義店',
       description: '電影票兌換券',
       points: 420,
-      image: '/ticket/theater.jpg',
+      image: 'https://picsum.photos/seed/ticket3/800/600',
       detail: {
         title: '電影票兌換券',
         pointsPerItem: 420,
@@ -90,7 +90,7 @@ export const useTicketStore = defineStore('ticket', () => {
       title: '康是美忠孝店',
       description: '購物金兌換券',
       points: 180,
-      image: '/ticket/cosmebranch.jpg',
+      image: 'https://picsum.photos/seed/ticket4/800/600',
       detail: {
         title: '購物金兌換券',
         pointsPerItem: 180,
@@ -117,7 +117,7 @@ export const useTicketStore = defineStore('ticket', () => {
       title: 'SPA會館大安店',
       description: '按摩體驗券',
       points: 500,
-      image: '/ticket/massage.jpg',
+      image: 'https://picsum.photos/seed/ticket5/800/600',
       detail: {
         title: '按摩體驗券',
         pointsPerItem: 500,
@@ -144,7 +144,7 @@ export const useTicketStore = defineStore('ticket', () => {
       title: '家樂福桂林店',
       description: '購物金兌換券',
       points: 280,
-      image: '/ticket/carrifourbranch.jpg',
+      image: 'https://picsum.photos/seed/ticket6/800/600',
       detail: {
         title: '購物金兌換券',
         pointsPerItem: 280,
@@ -163,6 +163,114 @@ export const useTicketStore = defineStore('ticket', () => {
           '優惠券不得與其他優惠或促銷活動合併使用。',
           '優惠券一經使用即失效,不可重複使用。',
           '請在有效期限內使用,逾期無效。'
+        ]
+      }
+    },
+    7: {
+      id: 7,
+      title: '王品牛排雙人套餐券',
+      description: '王品牛排雙人套餐券',
+      points: 2800,
+      image: 'https://picsum.photos/seed/ticket7/800/600',
+      detail: {
+        title: '王品牛排雙人套餐券',
+        pointsPerItem: 2800,
+        validPeriod: {
+          start: '即日起',
+          end: '2025/12/31'
+        },
+        usageSteps: [
+          '使用前請提前3天電話預約',
+          '入座時出示電子票券QR Code',
+          '每次限用一張',
+          '不可與其他優惠併用'
+        ],
+        terms: [
+          '特殊節日(春節、情人節、母親節等)不適用',
+          '午餐時段不適用,僅供晚餐使用',
+          '本券使用完畢後,不找零、不可兌換現金',
+          '店家保留活動修改、暫停或終止之權利'
+        ]
+      }
+    },
+    8: {
+      id: 8,
+      title: '王品牛排單人套餐券',
+      description: '王品牛排單人套餐券',
+      points: 1500,
+      image: 'https://picsum.photos/seed/ticket7/800/600',
+      detail: {
+        title: '王品牛排單人套餐券',
+        pointsPerItem: 1500,
+        validPeriod: {
+          start: '即日起',
+          end: '2025/12/31'
+        },
+        usageSteps: [
+          '使用前請提前3天電話預約',
+          '入座時出示電子票券QR Code',
+          '每次限用一張',
+          '不可與其他優惠併用'
+        ],
+        terms: [
+          '特殊節日(春節、情人節、母親節等)不適用',
+          '午餐時段不適用,僅供晚餐使用',
+          '本券使用完畢後,不找零、不可兌換現金',
+          '店家保留活動修改、暫停或終止之權利'
+        ]
+      }
+    },
+    9: {
+      id: 9,
+      title: '王品牛排家庭四人套餐',
+      description: '王品牛排家庭四人套餐',
+      points: 5200,
+      image: 'https://picsum.photos/seed/ticket7/800/600',
+      detail: {
+        title: '王品牛排家庭四人套餐',
+        pointsPerItem: 5200,
+        validPeriod: {
+          start: '即日起',
+          end: '2025/12/31'
+        },
+        usageSteps: [
+          '使用前請提前3天電話預約',
+          '入座時出示電子票券QR Code',
+          '每次限用一張',
+          '不可與其他優惠併用'
+        ],
+        terms: [
+          '特殊節日(春節、情人節、母親節等)不適用',
+          '午餐時段不適用,僅供晚餐使用',
+          '本券使用完畢後,不找零、不可兌換現金',
+          '店家保留活動修改、暫停或終止之權利'
+        ]
+      }
+    },
+    10: {
+      id: 10,
+      title: '王品牛排和牛雙人套餐券',
+      description: '王品牛排和牛雙人套餐券',
+      points: 4500,
+      image: 'https://picsum.photos/seed/ticket7/800/600',
+      detail: {
+        title: '王品牛排和牛雙人套餐券',
+        pointsPerItem: 4500,
+        validPeriod: {
+          start: '即日起',
+          end: '2025/12/31'
+        },
+        usageSteps: [
+          '使用前請提前3天電話預約',
+          '入座時出示電子票券QR Code',
+          '每次限用一張',
+          '不可與其他優惠併用'
+        ],
+        terms: [
+          '特殊節日(春節、情人節、母親節等)不適用',
+          '午餐時段不適用,僅供晚餐使用',
+          '本券使用完畢後,不找零、不可兌換現金',
+          '店家保留活動修改、暫停或終止之權利'
         ]
       }
     }

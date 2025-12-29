@@ -1,74 +1,76 @@
 <template>
-  <div class="ticket-detail-view">
+  <div class="store-ticket-detail-view">
     <!-- 桌面版：大卡片設計 -->
     <div class="hidden md:block">
-  <div class="w-full flex justify-center px-10 py-8">
-    <div class="max-w-4xl w-full">
-      <!-- 整張大卡片 -->
-      <div class="ticket-card">
-        <!-- 上半部：圖片 -->
-        <div class="ticket-image-section">
-          <img
-            :src="ticketImage"
-            :alt="ticketDetail?.title || '票券圖片'"
-            class="ticket-image"
-          />
-        </div>
-
-        <!-- 下半部：內容 -->
-        <div class="ticket-content-section">
-          <!-- 標題 -->
-          <h1 class="ticket-title">{{ ticketDetail?.title || '票券詳情' }}</h1>
-
-          <!-- 積分和使用期間 -->
-          <div class="ticket-info">
-            <div class="info-row">
-              <span class="info-label">扣除積分</span>
-              <span class="info-value points-value">{{ ticketDetail?.pointsPerItem || 0 }}積分/份</span>
+      <div class="w-full flex justify-center px-10 py-8">
+        <div class="max-w-4xl w-full">
+          <!-- 整張大卡片 -->
+          <div class="promotion-detail-card">
+            <!-- 上半部：圖片 -->
+            <div class="promotion-image-section">
+              <img
+                :src="ticketDetail?.image || ''"
+                :alt="ticketDetail?.title || '電子票券圖片'"
+                class="promotion-detail-image"
+              />
             </div>
-            <div class="info-row">
-              <span class="info-label">可使用期間</span>
-              <span class="info-value">
-                {{ ticketDetail?.validPeriod?.start || '' }}-{{ ticketDetail?.validPeriod?.end || '' }}
-              </span>
-            </div>
-          </div>
 
-          <!-- 使用說明 -->
-          <div class="ticket-section">
-            <h2 class="section-title">使用說明</h2>
-            <h3 class="section-subtitle">使用步驟:</h3>
-            <ol class="steps-list">
-              <li
-                v-for="(step, index) in ticketDetail?.usageSteps || []"
-                :key="index"
-                class="step-item"
-              >
-                {{ step }}
-              </li>
-            </ol>
-          </div>
+            <!-- 下半部：內容 -->
+            <div class="promotion-content-section">
+              <!-- 標題 -->
+              <h1 class="promotion-detail-title">
+                {{ ticketDetail?.title || '電子票券詳情' }}
+              </h1>
 
-          <!-- 使用條款 -->
-          <div class="ticket-section">
-            <h2 class="section-title">使用條款:</h2>
-            <ul class="terms-list">
-              <li
-                v-for="(term, index) in ticketDetail?.terms || []"
-                :key="index"
-                class="term-item"
-              >
-                {{ term }}
-              </li>
-            </ul>
-          </div>
+              <!-- 積分和使用期間 -->
+              <div class="ticket-info">
+                <div class="info-row">
+                  <span class="info-label">扣除積分</span>
+                  <span class="info-value points-value">{{ ticketDetail?.points || 0 }}積分/份</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">可使用期間</span>
+                  <span class="info-value">
+                    {{ ticketDetail?.validPeriod?.start || '' }}-{{ ticketDetail?.validPeriod?.end || '' }}
+                  </span>
+                </div>
+              </div>
 
-          <!-- 立即兌換按鈕 -->
-          <div class="ticket-actions">
-            <button class="redeem-button" @click="handleRedeem">
-              立即兌換
-            </button>
-          </div>
+              <!-- 使用說明 -->
+              <div class="promotion-section">
+                <h2 class="section-title">使用說明</h2>
+                <h3 class="section-subtitle">使用步驟:</h3>
+                <ol class="steps-list">
+                  <li
+                    v-for="(step, index) in ticketDetail?.usageSteps || []"
+                    :key="index"
+                    class="step-item"
+                  >
+                    {{ step }}
+                  </li>
+                </ol>
+              </div>
+
+              <!-- 使用條款 -->
+              <div class="promotion-section">
+                <h2 class="section-title">使用條款:</h2>
+                <ul class="terms-list">
+                  <li
+                    v-for="(term, index) in ticketDetail?.terms || []"
+                    :key="index"
+                    class="term-item"
+                  >
+                    {{ term }}
+                  </li>
+                </ul>
+              </div>
+
+              <!-- 立即兌換按鈕 -->
+              <div class="promotion-actions">
+                <button class="redeem-button" @click="handleRedeem">
+                  立即兌換
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -76,12 +78,12 @@
     </div>
 
     <!-- 手機版：整頁式設計 -->
-    <div class="md:hidden ticket-detail-mobile">
+    <div class="md:hidden store-ticket-detail-mobile">
       <!-- 圖片區域（全寬） -->
       <div class="mobile-image-section">
         <img
-          :src="ticketImage"
-          :alt="ticketDetail?.title || '票券圖片'"
+          :src="ticketDetail?.image || ''"
+          :alt="ticketDetail?.title || '電子票券圖片'"
           class="mobile-ticket-image"
         />
       </div>
@@ -89,13 +91,15 @@
       <!-- 內容區域 -->
       <div class="mobile-content-section">
         <!-- 標題 -->
-        <h1 class="mobile-ticket-title">{{ ticketDetail?.title || '票券詳情' }}</h1>
+        <h1 class="mobile-ticket-title">
+          {{ ticketDetail?.title || '電子票券詳情' }}
+        </h1>
 
         <!-- 積分和使用期間 -->
         <div class="mobile-ticket-info">
           <div class="mobile-info-row">
             <span class="mobile-info-label">扣除積分</span>
-            <span class="mobile-info-value mobile-points-value">{{ ticketDetail?.pointsPerItem || 0 }}積分/份</span>
+            <span class="mobile-info-value mobile-points-value">{{ ticketDetail?.points || 0 }}積分/份</span>
           </div>
           <div class="mobile-info-row">
             <span class="mobile-info-label">可使用期間</span>
@@ -146,47 +150,98 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStoreStore } from '@/stores/store'
 import { useTicketStore } from '@/stores/ticket'
 
+// 定義 props（路由配置使用 props: true，參數會作為 props 傳遞）
+const props = defineProps({
+  storeId: {
+    type: [String, Number],
+    default: undefined
+  },
+  ticketId: {
+    type: [String, Number],
+    default: undefined
+  }
+})
+
 const route = useRoute()
+const storeStore = useStoreStore()
 const ticketStore = useTicketStore()
 
-// 從路由參數獲取票券 id
-const ticketId = computed(() => parseInt(route.params.id))
-
-// 從 Pinia store 獲取票券數據
-const ticket = computed(() => {
-  return ticketStore.getTicketById(ticketId.value)
+// 從路由參數或 props 獲取店家 id 和票券 id
+const storeId = computed(() => {
+  const id = props.storeId || route.params.storeId
+  if (!id) return 0
+  const numId = typeof id === 'string' ? parseInt(id, 10) : id
+  return isNaN(numId) ? 0 : numId
 })
 
-// 票券詳情
+const ticketId = computed(() => {
+  const id = props.ticketId || route.params.ticketId
+  if (!id) return 0
+  const numId = typeof id === 'string' ? parseInt(id, 10) : id
+  return isNaN(numId) ? 0 : numId
+})
+
+// 從店家資料中獲取票券資訊
+const storeTicket = computed(() => {
+  if (!storeId.value || !ticketId.value) return null
+  const store = storeStore.getStoreById(storeId.value)
+  if (!store || !store.tickets) return null
+  return store.tickets.find(t => t.id === ticketId.value) || null
+})
+
+// 從 ticket.js 獲取票券詳細資料
 const ticketDetail = computed(() => {
-  return ticket.value?.detail || null
-})
-
-// 票券圖片（使用票券的圖片或隨機圖片）
-const ticketImage = computed(() => {
-  if (ticket.value?.image) {
-    return ticket.value.image
+  if (!ticketId.value) return null
+  
+  // 先從 ticket.js 中獲取詳細資料
+  const ticket = ticketStore.getTicketById(ticketId.value)
+  if (ticket && ticket.detail) {
+    return {
+      ...ticket.detail,
+      image: ticket.image || storeTicket.value?.image || '',
+      title: ticket.title || storeTicket.value?.title || '',
+      points: ticket.points || storeTicket.value?.points || 0
+    }
   }
-  // 如果沒有圖片，使用隨機圖片
-  const randomImages = [
-    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=400&fit=crop'
-  ]
-  const randomIndex = ticketId.value % randomImages.length
-  return randomImages[randomIndex]
+  
+  // 如果 ticket.js 中沒有，使用店家票券的基本資料
+  if (storeTicket.value) {
+    return {
+      title: storeTicket.value.title,
+      points: storeTicket.value.points,
+      image: storeTicket.value.image,
+      validPeriod: {
+        start: '即日起',
+        end: '2025/12/31'
+      },
+      usageSteps: [
+        '使用前請提前3天電話預約',
+        '入座時出示電子票券QR Code',
+        '每次限用一張',
+        '不可與其他優惠併用'
+      ],
+      terms: [
+        '特殊節日(春節、情人節、母親節等)不適用',
+        '午餐時段不適用,僅供晚餐使用',
+        '本券使用完畢後,不找零、不可兌換現金',
+        '店家保留活動修改、暫停或終止之權利'
+      ]
+    }
+  }
+  
+  return null
 })
 
+// 處理立即兌換按鈕點擊
 const handleRedeem = () => {
-  console.log('兌換票券:', ticket.value?.title)
+  console.log('兌換票券:', ticketDetail.value?.title)
   // 這裡可以添加兌換邏輯
+  alert('票券兌換成功！')
 }
 
 // 頁面載入時滾動到頂部
@@ -196,36 +251,41 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.ticket-card {
+.store-ticket-detail-view {
+  min-height: 100vh;
+  background: white;
+}
+
+/* ========== 桌面版樣式（使用與 PromotionDetailView 相同的樣式） ========== */
+.promotion-detail-card {
   background: white;
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.ticket-image-section {
+.promotion-image-section {
   width: 100%;
-  height: 500px;
+  height: 600px;
   overflow: hidden;
   position: relative;
 }
 
-.ticket-image {
+.promotion-detail-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.ticket-content-section {
+.promotion-content-section {
   padding: 40px;
 }
 
-.ticket-title {
+.promotion-detail-title {
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 600;
   color: #333;
-  text-align: left;
-  margin-bottom: 32px;
+  margin: 0 0 32px 0;
 }
 
 .ticket-info {
@@ -252,31 +312,31 @@ onMounted(() => {
 .info-value {
   font-size: 16px;
   color: #333;
-  font-weight: 70;
+  font-weight: 400;
 }
 
 .points-value {
   color: #f78a01;
-  font-weight: 120;
+  font-weight: 600;
   font-size: 25px;
 }
 
-.ticket-section {
+.promotion-section {
   margin-bottom: 32px;
 }
 
 .section-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 400;
   color: #333;
-  margin-bottom: 16px;
+  margin: 0 0 16px 0;
 }
 
 .section-subtitle {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
-  color: #666;
-  margin-bottom: 12px;
+  color: #333;
+  margin: 0 0 12px 0;
 }
 
 .steps-list {
@@ -337,24 +397,22 @@ onMounted(() => {
   font-weight: bold;
 }
 
-.ticket-actions {
-  display: flex;
-  justify-content: center;
+.promotion-actions {
   margin-top: 40px;
 }
 
 .redeem-button {
+  width: 100%;
+  padding: 16px;
   background: #f78a01;
   color: white;
   border: none;
   border-radius: 16px;
-  padding: 16px 48px;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(247, 138, 1, 0.3);
-  width: 100%;
 }
 
 .redeem-button:hover {
@@ -368,21 +426,15 @@ onMounted(() => {
 }
 
 /* ========== 手機版樣式 ========== */
-.ticket-detail-view {
-  min-height: 100vh;
-  background: white;
-}
-
-.ticket-detail-mobile {
+.store-ticket-detail-mobile {
   width: 100%;
   background: white;
 }
 
-/* 手機版圖片區域（全寬） */
 .mobile-image-section {
   width: 100%;
   height: 0;
-  padding-bottom: 60%; /* 調整圖片比例 */
+  padding-bottom: 60%;
   overflow: hidden;
   position: relative;
 }
@@ -396,9 +448,8 @@ onMounted(() => {
   object-fit: cover;
 }
 
-/* 手機版內容區域 */
 .mobile-content-section {
-  padding: 20px 16px 100px 16px; /* 底部 padding 為按鈕留空間 */
+  padding: 20px 16px 100px 16px;
 }
 
 .mobile-ticket-title {
@@ -530,17 +581,17 @@ onMounted(() => {
 }
 
 .mobile-redeem-button {
+  width: 100%;
+  padding: 16px;
   background: #f78a01;
   color: white;
   border: none;
   border-radius: 12px;
-  padding: 16px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(247, 138, 1, 0.3);
-  width: 100%;
 }
 
 .mobile-redeem-button:hover {

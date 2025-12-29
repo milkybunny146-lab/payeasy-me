@@ -1,21 +1,26 @@
 <template>
-  <div class="w-full flex justify-center px-10 py-8">
+  <div class="w-full flex justify-center px-4 py-8 md:px-4 md:py-6">
     <div class="max-w-7xl w-full">
       <!-- 標題區域 -->
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-black">主題推薦</h2>
+      <div class="flex justify-between items-center mb-4 md:mb-6">
+        <h2 class="text-xl md:text-2xl font-[350] text-black">主題推薦</h2>
+        <!-- 手機版頁面指示器 -->
+        <div class="md:hidden text-sm text-gray-600">
+          {{ mobileCurrentIndex + 1 }}/{{ mobilePages.length }}
+        </div>
       </div>
 
       <div class="relative">
-      <!-- Swiper 輪播 -->
-      <Swiper
-        :modules="[Pagination]"
-        :slides-per-view="1"
-        :space-between="24"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
-        class="category-swiper"
-      >
+      <!-- 桌面版 Swiper 輪播 -->
+      <div class="hidden md:block">
+        <Swiper
+          :modules="[Pagination]"
+          :slides-per-view="1"
+          :space-between="24"
+          @swiper="onSwiper"
+          @slideChange="onSlideChange"
+          class="category-swiper"
+        >
         <SwiperSlide v-for="(page, pageIndex) in pages" :key="pageIndex">
           <div class="cards-container">
             <!-- 左半邊大卡片 -->
@@ -97,27 +102,90 @@
             </section>
           </div>
         </SwiperSlide>
-      </Swiper>
+        </Swiper>
+      </div>
 
-      <!-- 輪播導航組件 -->
-      <CarouselNavigation
-        :current-index="currentIndex"
-        :total-slides="pages.length"
-        :is-beginning="isBeginning"
-        :is-end="isEnd"
-        pagination-style="custom"
-        class="theme-carousel-nav"
-        @prev="slidePrev"
-        @next="slideNext"
-        @go-to="goToSlide"
-      />
+      <!-- 手機版 Swiper 輪播 -->
+      <div class="md:hidden">
+        <Swiper
+          :modules="[Pagination]"
+          :slides-per-view="1"
+          :space-between="16"
+          @swiper="onMobileSwiper"
+          @slideChange="onMobileSlideChange"
+          class="category-swiper"
+        >
+        <SwiperSlide v-for="(card, cardIndex) in mobilePages" :key="cardIndex">
+          <div class="mobile-big-card">
+            <router-link :to="`/theme/${getThemeId(card.category.name)}`" class="mobile-big-card-image-wrapper">
+              <img :src="card.category.image" :alt="card.category.name" class="mobile-big-card-image" />
+              <div class="mobile-big-card-overlay">
+                <h3 class="mobile-big-card-title">{{ card.category.name }}</h3>
+                <span class="mobile-big-card-count">{{ card.category.count }}個店家</span>
+              </div>
+            </router-link>
+            <div class="mobile-shops-container">
+              <div v-for="shop in card.shops" :key="shop.id" class="mobile-shop-card">
+                <div class="mobile-shop-image-wrapper">
+                  <img :src="shop.image" :alt="shop.name" class="mobile-shop-image" />
+                </div>
+                <div class="mobile-shop-info">
+                  <h4 class="mobile-shop-name">{{ shop.name }}</h4>
+                  <span class="mobile-shop-category">{{ shop.category }}</span>
+                  <div class="mobile-meta">
+                    <span class="mobile-rating">★ {{ shop.rating }}</span>
+                    <span class="mobile-distance">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="mobile-location-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {{ shop.distance }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+        </Swiper>
+      </div>
+
+      <!-- 桌面版輪播導航組件 -->
+      <div class="hidden md:block">
+        <CarouselNavigation
+          :current-index="currentIndex"
+          :total-slides="pages.length"
+          :is-beginning="isBeginning"
+          :is-end="isEnd"
+          pagination-style="custom"
+          class="theme-carousel-nav"
+          @prev="slidePrev"
+          @next="slideNext"
+          @go-to="goToSlide"
+        />
+      </div>
+
+      <!-- 手機版輪播導航組件 -->
+      <div class="md:hidden">
+        <CarouselNavigation
+          :current-index="mobileCurrentIndex"
+          :total-slides="mobilePages.length"
+          :is-beginning="mobileIsBeginning"
+          :is-end="mobileIsEnd"
+          :show-navigation="false"
+          :show-pagination="true"
+          pagination-style="custom"
+          class="mobile-carousel-nav"
+          @go-to="goToMobileSlide"
+        />
+      </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -141,10 +209,27 @@ const getThemeId = (name) => {
   return themeMap[name] || 'cuisine'
 }
 
+// 桌面版 Swiper
 const swiperInstance = ref(null)
 const currentIndex = ref(0)
 const isBeginning = ref(true)
 const isEnd = ref(false)
+
+// 手機版 Swiper
+const mobileSwiperInstance = ref(null)
+const mobileCurrentIndex = ref(0)
+const mobileIsBeginning = ref(true)
+const mobileIsEnd = ref(false)
+
+// 將桌面版數據轉換為手機版（每張卡片獨立一頁）
+const mobilePages = computed(() => {
+  const result = []
+  pages.value.forEach(page => {
+    result.push(page.left)
+    result.push(page.right)
+  })
+  return result
+})
 
 const onSwiper = (swiper) => {
   swiperInstance.value = swiper
@@ -179,23 +264,40 @@ const goToSlide = (index) => {
   swiperInstance.value?.slideTo(index)
 }
 
+// 手機版 Swiper 事件處理
+const onMobileSwiper = (swiper) => {
+  mobileSwiperInstance.value = swiper
+}
+
+const onMobileSlideChange = () => {
+  if (mobileSwiperInstance.value) {
+    mobileCurrentIndex.value = mobileSwiperInstance.value.activeIndex
+    mobileIsBeginning.value = mobileSwiperInstance.value.isBeginning
+    mobileIsEnd.value = mobileSwiperInstance.value.isEnd
+  }
+}
+
+const goToMobileSlide = (index) => {
+  mobileSwiperInstance.value?.slideTo(index)
+}
+
 // 三頁資料
 const pages = ref([
   {
     left: {
       category: { name: '美食饗宴', count: 12, image: 'https://tb-static.uber.com/prod/image-proc/processed_images/1b22e7fa06c151ff897f79eeb6717c72/3ac2b39ad528f8c8c5dc77c59abb683d.jpeg' },
       shops: [
-        { id: 1, name: '築間幸福鍋物', category: '美食 > 火鍋', rating: 4.5, distance: '1.2km', image: '/theme/hotpot.jpeg' },
-        { id: 2, name: '欣葉台菜', category: '美食 > 台菜', rating: 4.8, distance: '2.5km', image: '/theme/food.jpeg' },
-        { id: 3, name: '饗食天堂', category: '美食 > 吃到飽', rating: 4.3, distance: '3.1km', image: '/theme/paradise.jpeg' }
+        { id: 1, name: '築間幸福鍋物', category: '美食 > 火鍋', rating: 4.5, distance: '1.2km', image: 'https://picsum.photos/seed/hometheme-hotpot/800/600' },
+        { id: 2, name: '欣葉台菜', category: '美食 > 台菜', rating: 4.8, distance: '2.5km', image: 'https://picsum.photos/seed/hometheme-food/800/600' },
+        { id: 3, name: '饗食天堂', category: '美食 > 吃到飽', rating: 4.3, distance: '3.1km', image: 'https://picsum.photos/seed/hometheme-paradise/800/600' }
       ]
     },
     right: {
-      category: { name: '美味甜點', count: 16, image: '/theme/dessert.jpeg' },
+      category: { name: '美味甜點', count: 16, image: 'https://picsum.photos/seed/hometheme-dessert/800/600' },
       shops: [
-        { id: 4, name: 'Lady M', category: '甜點 > 蛋糕', rating: 4.6, distance: '0.8km', image: '/theme/ladym.jpeg' },
-        { id: 5, name: 'Häagen-Dazs', category: '甜點 > 冰淇淋', rating: 4.5, distance: '1.5km', image: '/theme/haagen.jpeg' },
-        { id: 6, name: '春水堂', category: '甜點 > 珍珠奶茶', rating: 4.4, distance: '1.1km', image: '/theme/bubble.jpeg' }
+        { id: 4, name: 'Lady M', category: '甜點 > 蛋糕', rating: 4.6, distance: '0.8km', image: 'https://picsum.photos/seed/hometheme-ladym/800/600' },
+        { id: 5, name: 'Häagen-Dazs', category: '甜點 > 冰淇淋', rating: 4.5, distance: '1.5km', image: 'https://picsum.photos/seed/hometheme-haagen/800/600' },
+        { id: 6, name: '春水堂', category: '甜點 > 珍珠奶茶', rating: 4.4, distance: '1.1km', image: 'https://picsum.photos/seed/hometheme-bubble/800/600' }
       ]
     }
   },
@@ -403,6 +505,156 @@ const pages = ref([
 
 :deep(.swiper-slide) {
   height: auto;
+}
+
+/* 手機版大卡片 */
+.mobile-big-card {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-big-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-big-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mobile-big-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-big-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 24px 16px 16px 16px;
+  color: white;
+  pointer-events: none;
+}
+
+.mobile-big-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: white;
+}
+
+.mobile-big-card-count {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 手機版店家容器 */
+.mobile-shops-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  padding-bottom: 8px;
+}
+
+.mobile-shop-card {
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-shop-image-wrapper {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.mobile-shop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mobile-shop-card:hover .mobile-shop-image {
+  transform: scale(1.1);
+}
+
+.mobile-shop-info {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-shop-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 2px 0;
+  line-height: 1.3;
+}
+
+.mobile-shop-category {
+  font-size: 10px;
+  color: #666;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.mobile-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+}
+
+.mobile-rating {
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.mobile-distance {
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.mobile-location-icon {
+  width: 10px;
+  height: 10px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+/* 手機版輪播導航 */
+.mobile-carousel-nav {
+  position: relative;
+  margin-top: 16px;
 }
 
 /* 輪播導航按鈕定位 - 相對於卡片容器 */

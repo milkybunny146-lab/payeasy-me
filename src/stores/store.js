@@ -9,7 +9,7 @@ export const useStoreStore = defineStore('store', () => {
       category: '美食 > 連鎖餐廳',
       rating: 4.5,
       distance: '1.2km',
-      image: '/selected/steak.jpeg',
+      image: 'https://picsum.photos/seed/store1/800/600',
       coupon: '平日午餐9折優惠券',
       // 店家詳細信息
       businessHours: '週一至週日 11:00-22:00',
@@ -34,7 +34,7 @@ export const useStoreStore = defineStore('store', () => {
           title: '內用5折優惠',
           originalPrice: 100,
           validUntil: '2024.03.31',
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           buttonText: '使用',
           usageDescription: '出示此優惠券於結帳時，可享消費滿$100元。',
           notes: [
@@ -49,7 +49,7 @@ export const useStoreStore = defineStore('store', () => {
           title: '雙人套餐優惠',
           originalPrice: 300,
           validUntil: '2024.03.31',
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           buttonText: '使用',
           usageDescription: '出示此優惠券於結帳時，可享消費滿$300元。',
           notes: [
@@ -64,7 +64,7 @@ export const useStoreStore = defineStore('store', () => {
           title: '週年慶特惠',
           originalPrice: 500,
           validUntil: '2024.04.30',
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           buttonText: '使用',
           usageDescription: '出示此優惠券於結帳時，可享消費滿$500元。',
           notes: [
@@ -76,89 +76,90 @@ export const useStoreStore = defineStore('store', () => {
         },
       ],
       // 電子票券（可選，如果有則顯示輪播）
+      // 票券 ID 對應 ticket.js 中的票券資料
       tickets: [
         {
-          id: 1,
+          id: 7, // 對應 ticket.js 中的 id: 7
           title: '王品牛排雙人套餐券',
           points: 2800,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: '高人氣',
         },
         {
-          id: 2,
+          id: 8, // 對應 ticket.js 中的 id: 8
           title: '王品牛排單人套餐券',
           points: 1500,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
-          id: 3,
+          id: 9, // 對應 ticket.js 中的 id: 9
           title: '王品牛排家庭四人套餐',
           points: 5200,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
-          id: 4,
+          id: 10, // 對應 ticket.js 中的 id: 10
           title: '王品牛排和牛雙人套餐券',
           points: 4500,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
-          id: 5,
+          id: 11, // 對應 ticket.js 中的 id: 11（如果需要的話）
           title: '王品牛排頂級和牛雙人套餐券',
           points: 4500,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
           id: 6,
           title: '王品牛排經典單人套餐券',
           points: 1500,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
           id: 7,
           title: '王品牛排豪華雙人套餐券',
           points: 3200,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: '高人氣',
         },
         {
           id: 8,
           title: '王品牛排精選套餐券',
           points: 2000,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
           id: 9,
           title: '王品牛排豪華單人套餐券',
           points: 1800,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
           id: 10,
           title: '王品牛排經典雙人套餐券',
           points: 3000,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
           id: 11,
           title: '王品牛排特選套餐券',
           points: 2200,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
         {
           id: 12,
           title: '王品牛排尊榮套餐券',
           points: 5000,
-          image: '/selected/steak.jpeg',
+          image: 'https://picsum.photos/seed/store1/800/600',
           tag: null,
         },
       ],
@@ -251,9 +252,33 @@ export const useStoreStore = defineStore('store', () => {
     return stores[storeId] || null
   }
 
+  // 搜尋店家（根據店家名稱）
+  const searchStores = (keyword) => {
+    if (!keyword || !keyword.trim()) {
+      return []
+    }
+
+    const searchTerm = keyword.trim().toLowerCase()
+    const results = []
+
+    // 搜尋所有店家
+    Object.values(stores).forEach((store) => {
+      if (store.name.toLowerCase().includes(searchTerm)) {
+        results.push({
+          type: 'store',
+          store: store,
+          storeId: store.id, // 使用全局 ID
+        })
+      }
+    })
+
+    return results
+  }
+
   return {
     stores,
     getStoreById,
     findStoreInAllCategories,
+    searchStores,
   }
 })

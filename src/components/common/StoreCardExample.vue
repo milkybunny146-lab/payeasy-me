@@ -27,7 +27,7 @@ const stores = ref([
     category: '美食 > 連鎖餐廳',
     rating: 4.5,
     distance: '1.2km',
-    image: '/theme/wangsteak.jpg',
+    image: 'https://picsum.photos/seed/storecard-wangsteak/800/600',
     coupon: '平日午餐9折優惠券'
   },
   {
@@ -36,7 +36,7 @@ const stores = ref([
     category: '美妝保養 > 連鎖藥妝',
     rating: 4.3,
     distance: '0.8km',
-    image: '/theme/watsons.jpg',
+    image: 'https://picsum.photos/seed/storecard-watsons/800/600',
     coupon: '滿千送百購物金'
   },
   {
@@ -45,7 +45,7 @@ const stores = ref([
     category: '書籍文具 > 連鎖書店',
     rating: 4.7,
     distance: '1.5km',
-    image: '/theme/eslite.jpg',
+    image: 'https://picsum.photos/seed/storecard-eslite/800/600',
     coupon: '會員專屬折價券'
   },
   {
@@ -54,7 +54,7 @@ const stores = ref([
     category: '服飾配件 > 服飾店',
     rating: 4.2,
     distance: '2.3km',
-    image: '/theme/net.jpg',
+    image: 'https://picsum.photos/seed/storecard-net/800/600',
     coupon: '新品上市優惠券'
   }
 ])
